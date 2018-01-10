@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.IO;
 
 namespace Homework
 {
@@ -12,11 +13,8 @@ namespace Homework
         static void Main(string[] prefixes)
         {
             FileReader myFileReader = new FileReader();
-            string index = "";
-            foreach(string line in myFileReader.Index)
-            {
-                index += line;
-            }
+            
+            
             try
             {
 
@@ -57,15 +55,16 @@ namespace Homework
                         test += line;
                     }
 
+                    context.Response.ContentType ="text/html";
 
-                    string responseString = test;
-                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+                    string responseString = myFileReader.Index;
+                    byte[] buffer = Encoding.UTF8.GetBytes(responseString);
 
                     // Get a response stream and write the response to it.
             
                     response.ContentLength64 = buffer.Length;
             
-                    System.IO.Stream output = response.OutputStream;
+                    Stream output = response.OutputStream;
                     output.Write(buffer, 0, buffer.Length);
             
                     // You must close the output stream.
