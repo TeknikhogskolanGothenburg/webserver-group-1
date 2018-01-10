@@ -10,12 +10,15 @@ namespace Homework
 {
     class SiteResources
     {
-        string Root = Environment.CurrentDirectory + "../../../../../../" + "Content";
-        List<string> FilePaths = new List<string>();
+        public string Root = Environment.CurrentDirectory + "../../../../../../" + "Content";
+        public List<string> FilePaths = new List<string>();
         public SiteResources()
         {
             FilePaths = FindAllFiles(Root);
-
+            foreach (string path in FilePaths)
+            {
+                Console.WriteLine(path);
+            }
         }
 
 
@@ -37,6 +40,19 @@ namespace Homework
                     }
                 }                
             }
+            return result;
+        }
+
+        public string GetExtension(string path)
+        {
+            string result = "";
+            do
+            {
+                result = path[path.Length - 1].ToString() + result;
+                path = path.Substring(0, path.Length - 1);
+            }
+            while (path[path.Length - 1].ToString() != ".");
+
             return result;
         }
     }
