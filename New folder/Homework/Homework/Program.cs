@@ -15,7 +15,7 @@ namespace Homework
         static void Main(string[] prefixes)
         {
             FileReader myFileReader = new FileReader();
-            
+            SiteResources a = new SiteResources();
             
             try
             {
@@ -33,7 +33,7 @@ namespace Homework
 
                 }
                 listener.Start();
-                while (listener.IsListening)
+                while(listener.IsListening)
                 {
                     // Add the prefixes.
                     foreach (string s in prefixes)
