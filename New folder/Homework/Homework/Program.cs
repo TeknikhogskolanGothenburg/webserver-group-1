@@ -51,6 +51,8 @@ namespace Homework
             // You must close the output stream.
             output.Close();
             listener.Stop();
+
+            //useful: Environment.CurrentDirectory
         }
 
     }
