@@ -15,7 +15,7 @@ namespace Homework
         static void Main(string[] prefixes)
         {
             FileReader myFileReader = new FileReader();
-            
+            SiteResources a = new SiteResources();
             
             try
             {
@@ -32,6 +32,7 @@ namespace Homework
                     throw new ArgumentException("prefixes");
 
                 }
+                listener.Start();
                 while(listener.IsListening)
                 {
                     // Add the prefixes.
@@ -39,7 +40,6 @@ namespace Homework
                     {
                         listener.Prefixes.Add(s);
                     }
-                    listener.Start();
                     Console.WriteLine("Listening...try again if you want.");
                     // Note: The GetContext method blocks while waiting for a request. 
                     HttpListenerContext context = listener.GetContext();
