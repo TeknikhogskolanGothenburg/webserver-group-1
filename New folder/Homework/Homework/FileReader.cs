@@ -10,9 +10,14 @@ namespace Homework
     public class FileReader
     {
         public string Index { get; set; }
+
+
         public FileReader()
         {
+            
+           
             Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");
+         
         }
 
     }
