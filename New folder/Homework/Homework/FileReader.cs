@@ -7,8 +7,13 @@ using System.IO;
 
 namespace Homework
 {
-    class FileReader
+    public class FileReader
     {
-        
+        public string[] Index { get; set; }
+        public FileReader()
+        {
+            Index = File.ReadAllLines(Environment.CurrentDirectory + @"../../../../../../" + @"/Content/index.html");
+        }
+
     }
 }
