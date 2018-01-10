@@ -46,7 +46,7 @@ namespace Homework
             // Obtain a response object.
             HttpListenerResponse response = context.Response;
             // Construct a response.
-
+            
             string responseString = index;
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
