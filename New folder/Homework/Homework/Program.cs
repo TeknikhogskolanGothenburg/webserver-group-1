@@ -49,21 +49,26 @@ namespace Homework
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
                     SiteResources FilesOnServer = new SiteResources();
-                    string test = "here:" + request.RawUrl;
-                    Console.WriteLine(test);
-                    Console.ReadKey();
-                    context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[6]);
-                    byte[] buffer1 = File.ReadAllBytes(FilesOnServer.FilePaths[6]);
 
-                    context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
-                    byte[] buffer2 = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
+                    byte[] buffer = new byte[] { };
+                    if (request.RawUrl == "")
+                    {
+                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
+                        buffer = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
+                    }
+                    else if (request.RawUrl == "anotherpage.htm")
+                    {
+                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[0]);
+                        buffer = File.ReadAllBytes(FilesOnServer.FilePaths[0]);
+                    }               
+                    
 
                     // Get a response stream and write the response to it.
 
-                    response.ContentLength64 = buffer1.Length;
+                    response.ContentLength64 = buffer.Length;
             
                     Stream output = response.OutputStream;
-                    output.Write(buffer1, 0, buffer1.Length);
+                    output.Write(buffer, 0, buffer.Length);
                     // You must close the output stream.
                     output.Close();
                     listener.Stop();
