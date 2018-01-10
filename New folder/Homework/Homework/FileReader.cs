@@ -12,7 +12,7 @@ namespace Homework
         public string Index { get; set; }
         public FileReader()
         {
-            Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"/Content/index.html");
+            Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");
         }
 
     }
