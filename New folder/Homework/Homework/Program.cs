@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Web;
 
 namespace Homework
 {
@@ -50,8 +51,8 @@ namespace Homework
                     SiteResources FilesOnServer = new SiteResources();
                     string test = request.RawUrl;
 
-                    context.Response.ContentType = "image/gif";
-                    byte[] bufferFile = File.ReadAllBytes(FilesOnServer.FilePaths[4]);
+                    context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
+                    byte[] bufferFile = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
                     string responseString = myFileReader.Index;
                     byte[] buffer = Encoding.UTF8.GetBytes(responseString);
                     
@@ -61,7 +62,7 @@ namespace Homework
             
                     Stream output = response.OutputStream;
                     output.Write(bufferFile, 0, bufferFile.Length);
-            
+                    
                     // You must close the output stream.
                     output.Close();
                     listener.Stop();

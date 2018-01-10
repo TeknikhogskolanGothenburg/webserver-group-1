@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
+
 namespace Homework
 {
     class SiteResources
@@ -18,7 +19,7 @@ namespace Homework
             foreach (string path in FilePaths)
             {
                 Console.WriteLine(path);
-            }
+            }   
         }
 
 
@@ -41,19 +42,6 @@ namespace Homework
                 }                
             }
             return result;
-        }
-
-        public string GetExtension(string path)
-        {
-            string result = "";
-            do
-            {
-                result = path[path.Length - 1].ToString() + result;
-                path = path.Substring(0, path.Length - 1);
-            }
-            while (path[path.Length - 1].ToString() != ".");
-
-            return result;
-        }
+        }        
     }
 }
