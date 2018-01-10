@@ -17,6 +17,8 @@ namespace Homework
             {
                 index += line;
             }
+            try
+            {
 
             if (!HttpListener.IsSupported)
             {
@@ -64,6 +66,11 @@ namespace Homework
             listener.Stop();
 
             //useful: Environment.CurrentDirectory
+            }
+            }
+            catch(WebException e)
+            {
+                Console.WriteLine(e.Status);
             }
         }
 
