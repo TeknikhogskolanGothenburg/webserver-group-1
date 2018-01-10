@@ -32,14 +32,14 @@ namespace Homework
                     throw new ArgumentException("prefixes");
 
                 }
-                while(listener.IsListening)
+                listener.Start();
+                while (listener.IsListening)
                 {
                     // Add the prefixes.
                     foreach (string s in prefixes)
                     {
                         listener.Prefixes.Add(s);
                     }
-                    listener.Start();
                     Console.WriteLine("Listening...try again if you want.");
                     // Note: The GetContext method blocks while waiting for a request. 
                     HttpListenerContext context = listener.GetContext();
