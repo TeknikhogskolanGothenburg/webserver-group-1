@@ -47,24 +47,20 @@ namespace Homework
                     // Obtain a response object.
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
+                    SiteResources FilesOnServer = new SiteResources();
+                    string test = request.RawUrl;
 
-                    string test = "";
-                    foreach (string line in context.Request.Headers.AllKeys)
-                    {
-                        test += line;
-                    }
-
-                    context.Response.ContentType ="text/html";
-
+                    context.Response.ContentType = "image/gif";
+                    byte[] bufferFile = File.ReadAllBytes(FilesOnServer.FilePaths[4]);
                     string responseString = myFileReader.Index;
                     byte[] buffer = Encoding.UTF8.GetBytes(responseString);
-
+                    
                     // Get a response stream and write the response to it.
             
-                    response.ContentLength64 = buffer.Length;
+                    response.ContentLength64 = bufferFile.Length;
             
                     Stream output = response.OutputStream;
-                    output.Write(buffer, 0, buffer.Length);
+                    output.Write(bufferFile, 0, bufferFile.Length);
             
                     // You must close the output stream.
                     output.Close();
