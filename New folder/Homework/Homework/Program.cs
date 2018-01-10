@@ -28,14 +28,14 @@ namespace Homework
                 }
                 // URI prefixes are required,
                 // for example "http://contoso.com:8080/index/".
+                while(true)
+                {
+                listener.Start();
                 if (prefixes == null || prefixes.Length == 0)
                 {
                     throw new ArgumentException("prefixes");
 
                 }
-                listener.Start();
-                while(listener.IsListening)
-                {
                     // Add the prefixes.
                     foreach (string s in prefixes)
                     {
@@ -49,20 +49,21 @@ namespace Homework
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
                     SiteResources FilesOnServer = new SiteResources();
-                    string test = request.RawUrl;
+                    string test = "here:" + request.RawUrl;
+                    Console.WriteLine(test);
+                    Console.ReadKey();
+                    context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[6]);
+                    byte[] buffer1 = File.ReadAllBytes(FilesOnServer.FilePaths[6]);
 
                     context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
-                    byte[] bufferFile = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
-                    string responseString = myFileReader.Index;
-                    byte[] buffer = Encoding.UTF8.GetBytes(responseString);
-                    
+                    byte[] buffer2 = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
+
                     // Get a response stream and write the response to it.
-            
-                    response.ContentLength64 = bufferFile.Length;
+
+                    response.ContentLength64 = buffer1.Length;
             
                     Stream output = response.OutputStream;
-                    output.Write(bufferFile, 0, bufferFile.Length);
-                    
+                    output.Write(buffer1, 0, buffer1.Length);
                     // You must close the output stream.
                     output.Close();
                     listener.Stop();
