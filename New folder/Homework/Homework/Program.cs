@@ -10,6 +10,8 @@ namespace Homework
 {
     class Program
     {
+        public static HttpListener listener = new HttpListener();
+
         static void Main(string[] prefixes)
         {
             FileReader myFileReader = new FileReader();
@@ -30,11 +32,8 @@ namespace Homework
                     throw new ArgumentException("prefixes");
 
                 }
-                while(true)
+                while(listener.IsListening)
                 {
-
-                    // Create a listener.
-                    HttpListener listener = new HttpListener();
                     // Add the prefixes.
                     foreach (string s in prefixes)
                     {
