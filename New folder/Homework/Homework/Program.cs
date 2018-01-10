@@ -9,11 +9,13 @@ namespace Homework
 {
     class Program
     {
+        public static HttpListener listener = new HttpListener();
+
         static void Main(string[] prefixes)
         {
             FileReader myFileReader = new FileReader();
             string index = "";
-            foreach (string line in myFileReader.Index)
+            foreach(string line in myFileReader.Index)
             {
                 index += line;
             }
@@ -32,11 +34,8 @@ namespace Homework
                     throw new ArgumentException("prefixes");
 
                 }
-                while (true)
+                while(listener.IsListening)
                 {
-
-                    // Create a listener.
-                    HttpListener listener = new HttpListener();
                     // Add the prefixes.
                     foreach (string s in prefixes)
                     {
@@ -51,16 +50,23 @@ namespace Homework
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
 
-                    string responseString = index;
+                    string test = "";
+                    foreach (string line in context.Request.Headers.AllKeys)
+                    {
+                        test += line;
+                    }
+
+
+                    string responseString = test;
                     byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
                     // Get a response stream and write the response to it.
-
+            
                     response.ContentLength64 = buffer.Length;
-
+            
                     System.IO.Stream output = response.OutputStream;
                     output.Write(buffer, 0, buffer.Length);
-
+            
                     // You must close the output stream.
                     output.Close();
                     listener.Stop();
@@ -68,7 +74,7 @@ namespace Homework
                     //useful: Environment.CurrentDirectory
                 }
             }
-            catch (WebException e)
+            catch(WebException e)
             {
                 Console.WriteLine(e.Status);
             }
