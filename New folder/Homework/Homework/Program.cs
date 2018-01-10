@@ -10,7 +10,9 @@ namespace Homework
     class Program
     {
         static void Main(string[] prefixes)
-        {       
+        {   
+            
+
             if (!HttpListener.IsSupported)
             {
                 Console.WriteLine("Windows XP SP2 or Server 2003 is required to use the HttpListener class.");
@@ -42,9 +44,11 @@ namespace Homework
             
             string responseString = "<HTML><BODY> T.T </BODY></HTML>";
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-            
+
             // Get a response stream and write the response to it.
+            
             response.ContentLength64 = buffer.Length;
+            
             System.IO.Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
             
