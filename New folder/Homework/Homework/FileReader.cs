@@ -18,7 +18,7 @@ namespace Homework
       
             Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");
            
-
+ 
          
         }
 
