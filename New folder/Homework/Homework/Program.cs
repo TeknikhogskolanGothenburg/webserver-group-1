@@ -17,6 +17,8 @@ namespace Homework
             {
                 index += line;
             }
+            try
+            {
 
             if (!HttpListener.IsSupported)
             {
@@ -30,6 +32,8 @@ namespace Homework
                 throw new ArgumentException("prefixes");
 
             }
+            while(true)
+            {
 
             // Create a listener.
             HttpListener listener = new HttpListener();
@@ -39,7 +43,7 @@ namespace Homework
                 listener.Prefixes.Add(s);
             }
             listener.Start();
-            Console.WriteLine("Listening...");
+            Console.WriteLine("Listening...try again if you want.");
             // Note: The GetContext method blocks while waiting for a request. 
             HttpListenerContext context = listener.GetContext();
             HttpListenerRequest request = context.Request;
@@ -62,6 +66,12 @@ namespace Homework
             listener.Stop();
 
             //useful: Environment.CurrentDirectory
+            }
+            }
+            catch(WebException e)
+            {
+                Console.WriteLine(e.Status);
+            }
         }
 
     }
