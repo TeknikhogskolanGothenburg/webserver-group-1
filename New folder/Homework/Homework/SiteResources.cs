@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web;
 
 
 namespace Homework
@@ -19,7 +20,7 @@ namespace Homework
         }
 
         //returns the path of each file in a given directory and all its subfolders
-        public List<string> FindAllFiles(string path)
+        private List<string> FindAllFiles(string path)
         {
             List<string> result = new List<string>();
             foreach (string entity in Directory.GetFileSystemEntries(path,"*"))
@@ -52,10 +53,9 @@ namespace Homework
             return result;
         }
 
-        private byte[] GetOutputContent(string y)
+        public string GetOutputType(string path)
         {
-
-            return File.ReadAllBytes(FilePaths[y]);
+            return MimeMapping.GetMimeMapping(FilePaths[path]);
         }
     }
 }
