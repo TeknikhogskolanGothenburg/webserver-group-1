@@ -27,13 +27,13 @@ namespace Homework
                 // URI prefixes are required,
                 // for example "http://contoso.com:8080/index/".
                 // Add the prefixes.
-                while(true)
-                {
-                    listener.Start();
                     foreach (string s in prefixes)
                     {
                         listener.Prefixes.Add(s);
                     }
+                while(true)
+                {
+                    listener.Start();
                     if (prefixes == null || prefixes.Length == 0)
                     {
                         throw new ArgumentException("prefixes");
@@ -49,24 +49,25 @@ namespace Homework
                     // Obtain a response object.
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
-                    SiteResources FilesOnServer = new SiteResources();
+                    SiteResources resources = new SiteResources();
 
-                    response.Headers.Set(new HttpRequestHeader(), "Md5");
+                    //response.Headers.Set(new HttpRequestHeader(), "Md5");
 
                     byte[] buffer = new byte[] { };
-                    Console.WriteLine(request.RawUrl);
-                    
-                    //response.ContentType = EnAvFunctionerna(request.RawUrl);
-                    //buffer = DenAndraFunctionen(request.RawUrl);
-                    //MimeMapping.GetMimeMapping;
-                    //File.ReadAllBytes;                    
+                    string pureRequestString = resources.CleanRawUrl(request.RawUrl);
+                    if (pureRequestString != "") {
+                        Console.WriteLine("RAW: " + request.RawUrl);
 
-                    // Get a response stream and write the response to it.
-                    response.ContentLength64 = buffer.Length;
-                    Stream output = response.OutputStream;
-                    output.Write(buffer, 0, buffer.Length);
-                    // You must close the output stream.
-                    output.Close();                    
+                        buffer = resources.GetOutputContent(pureRequestString);
+                        response.ContentType = resources.GetOutputType(pureRequestString);
+
+                        // Get a response stream and write the response to it.
+                        response.ContentLength64 = buffer.Length;
+                        Stream output = response.OutputStream;
+                        output.Write(buffer, 0, buffer.Length);
+                        // You must close the output stream.
+                        output.Close();
+                    }
                     listener.Stop();
                 }
             }

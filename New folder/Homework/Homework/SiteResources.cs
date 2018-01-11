@@ -60,7 +60,32 @@ namespace Homework
 
         public byte[] GetOutputContent(string y)
         {
-            return File.ReadAllBytes(FilePaths[y]);
+            foreach (string s in FilePaths.Keys)
+            {
+                Console.WriteLine(s);
+            }
+            return File.ReadAllBytes(FilePaths[y]);   
+        }
+        public string CleanRawUrl(string raw)
+        {
+            string result = "";
+
+            switch (raw)
+            {
+                case "/":
+                    result = "\\index.html";
+                    break;
+                case "/favicon.ico":
+                    //do nothing
+                    break;
+                case "/Subfolder/":
+                    result = "\\" + raw.Substring(1, raw.Length - 2) + "\\index.html";
+                    break;
+                default:
+                    result = "\\" + raw.Substring(1,raw.Length - 1);
+                    break;
+            }
+            return result;
         }
     }
 }
