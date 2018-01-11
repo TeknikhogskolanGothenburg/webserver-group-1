@@ -66,21 +66,21 @@ namespace Homework
                     {
                         end = "index.html";
                     }
-                    if (request.RawUrl == "/favicon.ico")
-                    { }
-                    else { 
+                    if (request.RawUrl != "/favicon.ico")
+                    {
                         string test = File.ReadAllText(Environment.CurrentDirectory + "../../../../../../\\Content" + request.RawUrl + end);
-                    
-                    buffer = Encoding.UTF8.GetBytes(test);
-                    // Get a response stream and write the response to it.
 
-                    response.ContentLength64 = buffer.Length;
-            
-                    Stream output = response.OutputStream;
-                    output.Write(buffer, 0, buffer.Length);
-                    // You must close the output stream.
-                    output.Close();
+                        buffer = Encoding.UTF8.GetBytes(test);
+                        // Get a response stream and write the response to it.
+
+                        response.ContentLength64 = buffer.Length;
+
+                        Stream output = response.OutputStream;
+                        output.Write(buffer, 0, buffer.Length);
+                        // You must close the output stream.
+                        output.Close();
                     }
+                    
                     listener.Stop();
 
                     //useful: Environment.CurrentDirectory
