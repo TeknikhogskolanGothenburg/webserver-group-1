@@ -51,5 +51,11 @@ namespace Homework
             }
             return result;
         }
+
+        private byte[] GetOutputContent(string y)
+        {
+
+            return File.ReadAllBytes(FilePaths[y]);
+        }
     }
 }
