@@ -57,5 +57,10 @@ namespace Homework
         {
             return MimeMapping.GetMimeMapping(FilePaths[path]);
         }
+
+        public byte[] GetOutputContent(string y)
+        {
+            return File.ReadAllBytes(FilePaths[y]);
+        }
     }
 }
