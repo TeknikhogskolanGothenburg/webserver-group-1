@@ -16,10 +16,7 @@ namespace Homework
         public SiteResources()
         {
             FilePaths = FindAllFiles(Root);
-            foreach (string path in FilePaths)
-            {
-                Console.WriteLine(path);
-            }   
+ 
         }
 
 

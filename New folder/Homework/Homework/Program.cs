@@ -28,18 +28,18 @@ namespace Homework
                 }
                 // URI prefixes are required,
                 // for example "http://contoso.com:8080/index/".
+                // Add the prefixes.
+                foreach (string s in prefixes)
+                {
+                    listener.Prefixes.Add(s);
+                }
                 while(true)
                 {
-                listener.Start();
-                if (prefixes == null || prefixes.Length == 0)
-                {
-                    throw new ArgumentException("prefixes");
-
-                }
-                    // Add the prefixes.
-                    foreach (string s in prefixes)
+                    listener.Start();
+                    if (prefixes == null || prefixes.Length == 0)
                     {
-                        listener.Prefixes.Add(s);
+                        throw new ArgumentException("prefixes");
+
                     }
                     Console.WriteLine("Listening...try again if you want.");
                     // Note: The GetContext method blocks while waiting for a request. 
@@ -51,18 +51,27 @@ namespace Homework
                     SiteResources FilesOnServer = new SiteResources();
 
                     byte[] buffer = new byte[] { };
-                    if (request.RawUrl == "")
-                    {
-                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
-                        buffer = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
-                    }
-                    else if (request.RawUrl == "anotherpage.htm")
-                    {
-                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[0]);
-                        buffer = File.ReadAllBytes(FilesOnServer.FilePaths[0]);
-                    }               
+                       
+                    context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
                     
-
+                    string end = "";
+                    Console.WriteLine(request.RawUrl);
+                    if(request.RawUrl == "/pianocat.gif")
+                    {
+                        
+                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[4]);
+                        Console.WriteLine(context.Response.ContentType);
+                    }
+                    if (request.RawUrl == "/" || request.RawUrl == "/Subfolder/")
+                    {
+                        end = "index.html";
+                    }
+                    if (request.RawUrl == "/favicon.ico")
+                    { }
+                    else { 
+                        string test = File.ReadAllText(Environment.CurrentDirectory + "../../../../../../\\Content" + request.RawUrl + end);
+                    
+                    buffer = Encoding.UTF8.GetBytes(test);
                     // Get a response stream and write the response to it.
 
                     response.ContentLength64 = buffer.Length;
@@ -71,6 +80,7 @@ namespace Homework
                     output.Write(buffer, 0, buffer.Length);
                     // You must close the output stream.
                     output.Close();
+                    }
                     listener.Stop();
 
                     //useful: Environment.CurrentDirectory
