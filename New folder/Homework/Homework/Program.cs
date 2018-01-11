@@ -16,12 +16,9 @@ namespace Homework
         static void Main(string[] prefixes)
         {            
             FileReader myFileReader = new FileReader();
-            SiteResources a = new SiteResources();
-            
+            SiteResources a = new SiteResources();            
             try
             {
-                            
-
                 if (!HttpListener.IsSupported)
                 {
                     Console.WriteLine("Windows XP SP2 or Server 2003 is required to use the HttpListener class.");
@@ -54,6 +51,7 @@ namespace Homework
                     // Construct a response.
                     SiteResources FilesOnServer = new SiteResources();
 
+                    response.Headers.Set(new HttpRequestHeader(), "Md5");
 
                     byte[] buffer = new byte[] { };
                     Console.WriteLine(request.RawUrl);

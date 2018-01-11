@@ -19,7 +19,7 @@ namespace Homework
         }
 
         //returns the path of each file in a given directory and all its subfolders
-        public List<string> FindAllFiles(string path)
+        private List<string> FindAllFiles(string path)
         {
             List<string> result = new List<string>();
             foreach (string entity in Directory.GetFileSystemEntries(path,"*"))
