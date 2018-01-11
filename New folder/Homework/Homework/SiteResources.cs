@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web;
 
 
 namespace Homework
@@ -50,6 +51,11 @@ namespace Homework
                 result.Add(key, path);
             }
             return result;
+        }
+
+        public string GetOutputType(string path)
+        {
+            return MimeMapping.GetMimeMapping(FilePaths[path]);
         }
     }
 }
