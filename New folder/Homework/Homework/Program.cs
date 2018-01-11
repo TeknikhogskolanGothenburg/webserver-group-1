@@ -68,7 +68,6 @@ namespace Homework
                         output.Close();
                     }
                 }
-                    listener.Stop();
             }
             catch(WebException e)
             {
