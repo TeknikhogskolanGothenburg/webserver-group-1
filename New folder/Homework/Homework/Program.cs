@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System.Web;
-
+using System.Security.Cryptography;
 namespace Homework
 {
     class Program
@@ -31,15 +31,15 @@ namespace Homework
                     {
                         listener.Prefixes.Add(s);
                     }
-                while(true)
-                {
-                    listener.Start();
                     if (prefixes == null || prefixes.Length == 0)
                     {
                         throw new ArgumentException("prefixes");
 
                     }
+                    listener.Start();
                     Console.WriteLine("Listening...try again if you want.");
+                while(true)
+                {
 
 
 
@@ -50,17 +50,16 @@ namespace Homework
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
                     SiteResources resources = new SiteResources();
-
-                    //response.Headers.Set(new HttpRequestHeader(), "Md5");
+               
+                    
 
                     byte[] buffer = new byte[] { };
                     string pureRequestString = resources.CleanRawUrl(request.RawUrl);
-                    if (pureRequestString != "") {
+                    if (pureRequestString != "")
+                    {                        
                         Console.WriteLine("RAW: " + request.RawUrl);
-
                         buffer = resources.GetOutputContent(pureRequestString);
-                        response.ContentType = resources.GetOutputType(pureRequestString);
-
+                        response.ContentType = resources.GetOutputType(pureRequestString);                        
                         // Get a response stream and write the response to it.
                         response.ContentLength64 = buffer.Length;
                         Stream output = response.OutputStream;
@@ -68,8 +67,8 @@ namespace Homework
                         // You must close the output stream.
                         output.Close();
                     }
-                    listener.Stop();
                 }
+                    listener.Stop();
             }
             catch(WebException e)
             {
