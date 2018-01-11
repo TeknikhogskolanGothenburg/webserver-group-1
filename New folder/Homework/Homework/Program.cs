@@ -14,12 +14,13 @@ namespace Homework
         public static HttpListener listener = new HttpListener();
 
         static void Main(string[] prefixes)
-        {
+        {            
             FileReader myFileReader = new FileReader();
             SiteResources a = new SiteResources();
             
             try
             {
+                            
 
                 if (!HttpListener.IsSupported)
                 {
@@ -28,20 +29,23 @@ namespace Homework
                 }
                 // URI prefixes are required,
                 // for example "http://contoso.com:8080/index/".
+                // Add the prefixes.
                 while(true)
                 {
-                listener.Start();
-                if (prefixes == null || prefixes.Length == 0)
-                {
-                    throw new ArgumentException("prefixes");
-
-                }
-                    // Add the prefixes.
+                    listener.Start();
                     foreach (string s in prefixes)
                     {
                         listener.Prefixes.Add(s);
                     }
+                    if (prefixes == null || prefixes.Length == 0)
+                    {
+                        throw new ArgumentException("prefixes");
+
+                    }
                     Console.WriteLine("Listening...try again if you want.");
+
+
+
                     // Note: The GetContext method blocks while waiting for a request. 
                     HttpListenerContext context = listener.GetContext();
                     HttpListenerRequest request = context.Request;
@@ -50,30 +54,22 @@ namespace Homework
                     // Construct a response.
                     SiteResources FilesOnServer = new SiteResources();
 
+
                     byte[] buffer = new byte[] { };
-                    if (request.RawUrl == "")
-                    {
-                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[2]);
-                        buffer = File.ReadAllBytes(FilesOnServer.FilePaths[2]);
-                    }
-                    else if (request.RawUrl == "anotherpage.htm")
-                    {
-                        context.Response.ContentType = MimeMapping.GetMimeMapping(FilesOnServer.FilePaths[0]);
-                        buffer = File.ReadAllBytes(FilesOnServer.FilePaths[0]);
-                    }               
+                    Console.WriteLine(request.RawUrl);
                     
+                    //response.ContentType = EnAvFunctionerna(request.RawUrl);
+                    //buffer = DenAndraFunctionen(request.RawUrl);
+                    //MimeMapping.GetMimeMapping;
+                    //File.ReadAllBytes;                    
 
                     // Get a response stream and write the response to it.
-
                     response.ContentLength64 = buffer.Length;
-            
                     Stream output = response.OutputStream;
                     output.Write(buffer, 0, buffer.Length);
                     // You must close the output stream.
-                    output.Close();
+                    output.Close();                    
                     listener.Stop();
-
-                    //useful: Environment.CurrentDirectory
                 }
             }
             catch(WebException e)
@@ -81,6 +77,5 @@ namespace Homework
                 Console.WriteLine(e.Status);
             }
         }
-
     }
 }

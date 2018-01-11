@@ -12,16 +12,11 @@ namespace Homework
     class SiteResources
     {
         public string Root = Environment.CurrentDirectory + "../../../../../../" + "Content";
-        public List<string> FilePaths = new List<string>();
+        public Dictionary<string, string> FilePaths { get; set; }
         public SiteResources()
         {
-            FilePaths = FindAllFiles(Root);
-            foreach (string path in FilePaths)
-            {
-                Console.WriteLine(path);
-            }   
+            FilePaths = ConvertToDic(FindAllFiles(Root));            
         }
-
 
         //returns the path of each file in a given directory and all its subfolders
         public List<string> FindAllFiles(string path)
@@ -42,6 +37,19 @@ namespace Homework
                 }                
             }
             return result;
-        }        
+        }
+
+        private Dictionary<string,string> ConvertToDic(List<string> list)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            foreach (string path in list)
+            {
+                string trash = (Environment.CurrentDirectory + "../../../../../../" + "Content");
+                string key = path.Substring(trash.Length, path.Length - trash.Length);
+                result.Add(key, path);
+            }
+            return result;
+        }
     }
 }

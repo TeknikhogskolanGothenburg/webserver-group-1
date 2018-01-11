@@ -13,16 +13,15 @@ namespace Homework
  
 
         public FileReader()
-        {
+        {      
+            Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");   
+        }        
 
-      
-            Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");
-           
- 
-         
+        public void Server(string RawUrl)
+        {
+            //our program
         }
 
-     
 
     }
 }
