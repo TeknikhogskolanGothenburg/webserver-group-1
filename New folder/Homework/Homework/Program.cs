@@ -56,20 +56,26 @@ namespace Homework
 
                     byte[] buffer = new byte[] { };
                     string pureRequestString = resources.CleanRawUrl(request.RawUrl);
-                    if (pureRequestString != "")
-                    {                        
-                        Console.WriteLine("RAW: " + request.RawUrl);
+                                            
+                    Console.WriteLine("RAW: " + request.RawUrl);                    
+                    if (pureRequestString == "")
+                    {
+                        buffer = new byte[0];
+                    }
+                    else
+                    {
                         buffer = resources.GetOutputContent(pureRequestString);
                         //setting more headers
                         response.ContentType = resources.GetOutputType(pureRequestString);
                         response.Headers.Add("Expires", resources.GetExpiresValue());
                         // Get a response stream and write the response to it.
-                        response.ContentLength64 = buffer.Length;
-                        Stream output = response.OutputStream;
-                        output.Write(buffer, 0, buffer.Length);
-                        // You must close the output stream.
-                        output.Close();
                     }
+                    response.ContentLength64 = buffer.Length;
+                    Stream output = response.OutputStream;
+                    output.Write(buffer, 0, buffer.Length);
+                    // You must close the output stream.
+                    output.Close();
+                    
                 }
             }
             catch(WebException e)
