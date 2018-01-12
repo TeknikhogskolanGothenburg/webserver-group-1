@@ -82,7 +82,17 @@ namespace Homework
                     result = raw + "index.html";
                     break;
                 default:
+                    bool matchFound = false;
                     result = raw;
+                    foreach(string key in FilePaths.Keys)
+                    {
+                        if(key == raw)
+                        {
+                            matchFound = true;
+                        }
+                    }
+                    if (!matchFound)
+                        result = "";
                     break;
             }
             return result;
