@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Net;
 
 
 namespace Homework
@@ -15,9 +14,6 @@ namespace Homework
     {
         public string Root = Environment.CurrentDirectory + "../../../../../../" + "Content";
         public Dictionary<string, string> FilePaths { get; set; }
-        public Cookie myCookie;
-        private object Response;
-
         public SiteResources()
         {
             FilePaths = ConvertToDic(FindAllFiles(Root));            
@@ -51,7 +47,7 @@ namespace Homework
             foreach (string path in list)
             {
                 string trash = (Environment.CurrentDirectory + "../../../../../../" + "Content");
-                string key = path.Substring(trash.Length, path.Length - trash.Length);
+                string key = path.Substring(trash.Length, path.Length - trash.Length).Replace('\\','/');
                 result.Add(key, path);
             }
             return result;
@@ -77,26 +73,55 @@ namespace Homework
             switch (raw)
             {
                 case "/":
-                    result = "\\index.html";
+                    result = raw + "index.html";
                     break;
                 case "/favicon.ico":
                     //do nothing
                     break;
                 case "/Subfolder/":
-                    result = "\\" + raw.Substring(1, raw.Length - 2) + "\\index.html";
+                    result = raw + "index.html";
                     break;
                 default:
-                    result = "\\" + raw.Substring(1,raw.Length - 1);
+                    result = raw;
                     break;
             }
             return result;
         }
-        public static Cookie BeginRequest()
+
+        public int GetStatusCode(string raw)
         {
-           var  myCookie = new Cookie();
-            myCookie.Value = "nu är Agneta inne.";
-            myCookie.Expires = DateTime.Now.AddDays(1d);
-            return myCookie;
+            int result = 0;
+
+            switch (raw)
+            {
+                case "/":
+                    result = 200;
+                    break;
+                case "/favicon.ico":
+                    result = 404;
+                    break;
+                case "/Subfolder/":
+                    result = 200;
+                    break;
+                default:
+                    result = 200;
+                    break;
+            }
+                
+
+            return result;
+        }
+
+        public string GetExpiresValue()
+        {
+            string result = "";
+
+            DateTime expireEnd = new DateTime();
+            expireEnd = DateTime.Now;
+            expireEnd.AddYears(1);
+            result = ((int)(DateTime.Now - expireEnd).TotalDays).ToString();
+
+            return result;
         }
     }
 }

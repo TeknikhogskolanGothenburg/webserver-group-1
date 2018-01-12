@@ -51,12 +51,8 @@ namespace Homework
                     // Construct a response.
                     SiteResources resources = new SiteResources();
 
-                    // response.Headers.Add(HttpResponseHeader.Expires, DateTime.Now.AddSeconds(10).ToString());
-
-                     //HttpCookie myCookie = new HttpCookie();
-                  Cookie cookie = SiteResources.BeginRequest();
-                    response.Cookies.Add(cookie);
-
+                    //set header status code
+                    response.StatusCode = resources.GetStatusCode(request.RawUrl);
 
                     byte[] buffer = new byte[] { };
                     string pureRequestString = resources.CleanRawUrl(request.RawUrl);
@@ -64,7 +60,9 @@ namespace Homework
                     {                        
                         Console.WriteLine("RAW: " + request.RawUrl);
                         buffer = resources.GetOutputContent(pureRequestString);
-                        response.ContentType = resources.GetOutputType(pureRequestString);                        
+                        //setting more headers
+                        response.ContentType = resources.GetOutputType(pureRequestString);
+                        response.Headers.Add("Expires", resources.GetExpiresValue());
                         // Get a response stream and write the response to it.
                         response.ContentLength64 = buffer.Length;
                         Stream output = response.OutputStream;
