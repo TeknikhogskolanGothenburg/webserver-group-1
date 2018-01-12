@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Net;
 
 
 namespace Homework
@@ -14,6 +15,9 @@ namespace Homework
     {
         public string Root = Environment.CurrentDirectory + "../../../../../../" + "Content";
         public Dictionary<string, string> FilePaths { get; set; }
+        public Cookie myCookie;
+        private object Response;
+
         public SiteResources()
         {
             FilePaths = ConvertToDic(FindAllFiles(Root));            
@@ -86,6 +90,13 @@ namespace Homework
                     break;
             }
             return result;
+        }
+        public static Cookie BeginRequest()
+        {
+           var  myCookie = new Cookie();
+            myCookie.Value = "nu är Agneta inne.";
+            myCookie.Expires = DateTime.Now.AddDays(1d);
+            return myCookie;
         }
     }
 }

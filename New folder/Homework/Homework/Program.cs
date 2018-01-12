@@ -50,8 +50,13 @@ namespace Homework
                     HttpListenerResponse response = context.Response;
                     // Construct a response.
                     SiteResources resources = new SiteResources();
-               
-                    
+
+                    // response.Headers.Add(HttpResponseHeader.Expires, DateTime.Now.AddSeconds(10).ToString());
+
+                     //HttpCookie myCookie = new HttpCookie();
+                  Cookie cookie = SiteResources.BeginRequest();
+                    response.Cookies.Add(cookie);
+
 
                     byte[] buffer = new byte[] { };
                     string pureRequestString = resources.CleanRawUrl(request.RawUrl);
