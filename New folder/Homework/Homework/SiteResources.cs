@@ -114,7 +114,17 @@ namespace Homework
                     result = 200;
                     break;
                 default:
+                    bool matchFound = false;
                     result = 200;
+                    foreach (string key in FilePaths.Keys)
+                    {
+                        if (key == raw)
+                        {
+                            matchFound = true;
+                        }
+                    }
+                    if (!matchFound)
+                        result = 404;
                     break;
             }
                 
