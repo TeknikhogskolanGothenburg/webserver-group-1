@@ -1,5 +1,4 @@
 
-Describe the cookie vulnerability called "Session hijacking" which the archicture of this webserver contains. Both the problem and a possible solution.
 # Session hijacking (theft) of a user Cookie from a browser:
 is to illegally take over someone else's session on the internet while it is running. The session hijacker takes over the identity
 of the victim without the website noticing anything. The hijacker can then enter false information, change settings and make orders in 
