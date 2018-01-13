@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-
+using System.Net;
 
 namespace Homework
 {
@@ -143,5 +143,18 @@ namespace Homework
 
             return result;
         }
+        public static Cookie CreateCookie()
+        {
+            var myCookie = new Cookie();
+            myCookie.Value = 1;
+            myCookie.co
+            myCookie.Expires = DateTime.Now.AddDays(1d);
+            return myCookie;
+        }
+        //public static void SetCookie( )
+        //{
+        //    int counter += 1;
+            
+        //}
     }
 }

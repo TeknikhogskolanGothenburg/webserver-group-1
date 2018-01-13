@@ -40,7 +40,7 @@ namespace Homework
                     Console.WriteLine("Listening...try again if you want.");
                 while(true)
                 {
-
+                    
 
 
                     // Note: The GetContext method blocks while waiting for a request. 
@@ -53,8 +53,20 @@ namespace Homework
 
                     //set header status code
                     response.StatusCode = resources.GetStatusCode(request.RawUrl);
+                    int counter = 0;
+                    Cookie cookie = SiteResources.BeginRequest();
+                    
+                     response.Cookies.Add(cookie);
+                    
+                    foreach (Cookie cook in response.Cookies)
+                    {
+                        counter += 1;
+                        cook.Value = counter.ToString();
 
-                    byte[] buffer = new byte[] { };
+                    }
+
+
+                        byte[] buffer = new byte[] { };
                     string pureRequestString = resources.CleanRawUrl(request.RawUrl);
                                             
                     Console.WriteLine("RAW: " + request.RawUrl);                    

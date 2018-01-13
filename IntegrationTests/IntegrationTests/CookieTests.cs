@@ -29,7 +29,7 @@ namespace IntegrationTests
         {
             // Arrange
             WebRequest requestWithoutCookie = WebRequest.Create(Localhost + "index.html");
-            var responseWithCookie = (HttpWebResponse)requestWithoutCookie.GetResponse();
+            var responseWithCookie = (HttpWebResponse)requestWithoutCookie.GetResponse();   
             var counterCookie = GetValueFromCounterCookie(responseWithCookie.Headers[HttpResponseHeader.SetCookie]);
             HttpWebRequest requestWithCookie = (HttpWebRequest)WebRequest.Create(Localhost + "counter");
             requestWithCookie.CookieContainer = new CookieContainer();
