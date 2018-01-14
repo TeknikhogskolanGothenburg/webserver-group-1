@@ -10,12 +10,16 @@ namespace Homework
     public class FileReader
     {
         public string Index { get; set; }
- 
+        public string DocIndex { get; set; }
 
         public FileReader()
-        {      
-            Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");   
-        }        
+        {
+            Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"Content/index.html");
+        }
+        //public  FileReader()
+        //{
+        //    Index = File.ReadAllText(Environment.CurrentDirectory + @"../../../../../../" + @"DocsSrc/docfx.json");
+        //}
 
         public void Server(string RawUrl)
         {

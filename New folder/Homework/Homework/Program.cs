@@ -24,9 +24,7 @@ namespace Homework
                     Console.WriteLine("Windows XP SP2 or Server 2003 is required to use the HttpListener class.");
                     return;
                 }
-                // URI prefixes are required,
-                // for example "http://contoso.com:8080/index/".
-                // Add the prefixes.
+            
                     foreach (string s in prefixes)
                     {
                         listener.Prefixes.Add(s);
@@ -53,30 +51,19 @@ namespace Homework
 
                     //set header status code
                     response.StatusCode = resources.GetStatusCode(request.RawUrl);
-                    int counter = 0;
-                    Cookie cookie = SiteResources.BeginRequest();
-                    
-                     response.Cookies.Add(cookie);
-                    
-                    foreach (Cookie cook in response.Cookies)
-                    {
-                        counter += 1;
-                        cook.Value = counter.ToString();
-
-                    }
-
-
+                  
+          
                         byte[] buffer = new byte[] { };
-                    string pureRequestString = resources.CleanRawUrl(request.RawUrl);
+                    string pureRequestString = resources.CleanRawUrl(request.RawUrl); //klar
                                             
-                    Console.WriteLine("RAW: " + request.RawUrl);                    
+                   // Console.WriteLine("RAW: " + request.RawUrl);                    
                     if (pureRequestString == "")
                     {
-                        buffer = new byte[0];
+                        buffer = new byte[0];   //vad gör denna? Den kommer aldrig att gå in här eftersom fel 404 kastas.
                     }
                     else
                     {
-                        buffer = resources.GetOutputContent(pureRequestString);
+                        buffer = resources.GetOutputContent(pureRequestString); //skickar hela Root:en
                         //setting more headers
                         response.ContentType = resources.GetOutputType(pureRequestString);
                         response.Headers.Add("Expires", resources.GetExpiresValue());

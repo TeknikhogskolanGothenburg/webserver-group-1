@@ -60,10 +60,10 @@ namespace Homework
 
         public byte[] GetOutputContent(string y)
         {
-            foreach (string s in FilePaths.Keys)
-            {
-                Console.WriteLine(s);
-            }
+            //foreach (string s in FilePaths.Keys)
+            //{
+            //    Console.WriteLine(s);
+            //}
             return File.ReadAllBytes(FilePaths[y]);   
         }
         public string CleanRawUrl(string raw)
@@ -138,23 +138,11 @@ namespace Homework
 
             DateTime expireEnd = new DateTime();
             expireEnd = DateTime.Now;
-            expireEnd.AddYears(1);
+            expireEnd.AddYears(10);
             result = ((int)(DateTime.Now - expireEnd).TotalDays).ToString();
 
-            return result;
+            return result;  // fel i formel. Värdet "0" returneras. Skall vara datum : 2019-01-14
         }
-        public static Cookie CreateCookie()
-        {
-            var myCookie = new Cookie();
-            myCookie.Value = 1;
-            myCookie.co
-            myCookie.Expires = DateTime.Now.AddDays(1d);
-            return myCookie;
-        }
-        //public static void SetCookie( )
-        //{
-        //    int counter += 1;
-            
-        //}
+
     }
 }
