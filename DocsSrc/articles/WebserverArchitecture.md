@@ -1,7 +1,7 @@
 
 # Webserver Architecture
 
-* How are your webserver build?
+# How are your webserver build?
 
 We open up a HttpListener Class that listens to our server "localhost:8080/"
 
@@ -32,7 +32,8 @@ These two object are added to the Response-class which then is added to a Stream
 The user can see the output on the screen.
 
  
+# What resources can the user access?
 
+It accesses all eight files in the Content-folder. Gif, html, htm, jpg, pdf, js and css-files.
 
-* What resources can the user access?
 * How does the server act in case of an error?
