@@ -21,7 +21,7 @@ namespace Homework
         public static HttpListenerResponse Build(HttpListenerContext context, SiteResources resources)
         {
             // setting all class properties to default values
-            Resources = resources;
+            Resources = resources;                          // vad är dessa för typ av...?
             Response = context.Response;
             CleanUrl = CleanRawUri(context.Request.RawUrl);
             Buffer = new byte[0];
@@ -66,7 +66,7 @@ namespace Homework
             {
                 foreach (Cookie c in request.Cookies)
                 {
-                    if (c.Name == "counter")
+                    if (c.Name == "counter")  // varför if-sats. kan c heta annat än counter?
                     {
                         Cookie CounterCookie = c;
                         CounterCookie.Value = (Convert.ToInt32(c.Value) + 1).ToString();
@@ -157,7 +157,7 @@ namespace Homework
         }
 
         // determines if our server can handle this non-resource based request
-        private static bool SpecialRequest(string url)
+        private static bool SpecialRequest(string url)   // vad är meningen att denna ska göra?
         {
             if (url.Length > 7)
             {
@@ -170,16 +170,16 @@ namespace Homework
         // determines if requested resource exists on our server
         private static bool ResourceExists()
         {
-            if (Resources.FilePaths.Keys.Contains(CleanUrl))
+            if (Resources.FilePaths.Keys.Contains(CleanUrl))     // vad gör denna?
                 return true;
 
-            return false;
+            return false;                        // betyder inte detta att false alltid returneras även om det är true?
         }
 
         //returns a future date in string format
         private static string GetExpiresValue(int years)
         {
-            return DateTime.UtcNow.AddYears(years).ToString("o");
+            return DateTime.UtcNow.AddYears(years).ToString("o");   // hittar inte var denna anropas.
         }
     }
 }
