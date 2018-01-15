@@ -40,6 +40,8 @@ namespace Homework
                 {
                     // Note: The GetContext method blocks while waiting for a request. 
                     HttpListenerContext context = listener.GetContext();
+                    Console.WriteLine("Program is running");
+
                     // Construct a response.
                     HttpListenerResponse response = ResponseBuilder.Build(context, new SiteResources());
                     //Console.WriteLine("Method :" + request.HttpMethod);                    
