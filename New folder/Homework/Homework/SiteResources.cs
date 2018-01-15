@@ -69,7 +69,10 @@ namespace Homework
         public string CleanRawUrl(string raw)
         {
             string result = "";
-
+            if(raw.Length > 7 && raw.Substring(0,8) == "/dynamic")
+            {
+                return "/dynamic";
+            }
             switch (raw)
             {
                 case "/":
@@ -101,7 +104,10 @@ namespace Homework
         public int GetStatusCode(string raw)
         {
             int result = 0;
-
+            if (raw.Length > 7 && raw.Substring(0, 8) == "/dynamic")
+            {
+                return 200;
+            }
             switch (raw)
             {
                 case "/":
