@@ -99,7 +99,6 @@ namespace Homework
                         {
                             Buffer = Encoding.UTF8.GetBytes("<result><value>" + sum + "</value></result>");
                             Response.ContentType = "application/xml";
-
                         }
                         else
                         {
