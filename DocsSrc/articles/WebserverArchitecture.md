@@ -1,4 +1,4 @@
-
+ 
 # Webserver Architecture
 
 # How are your webserver build?
@@ -17,13 +17,13 @@ With the List we create a Dictionary taking two String-parameters. We loop the "
 "Content", leaving only e.g. \\anotherpage.htm , and then Replacing the "\\" to a "/", leaving "/anotherpage.htm". This will be our Key. 
 The Value is its Root-value.
 
-When someone sends a request we create an object and adds five things to it:
+When someone sends a request we create an object and adds five things to it and convert it to a Byte array:
 1. A StatusCode. 200 for correct web-addresses and 404 for incorrect. It is set by looping through our Dictionary for comparison to the
 request.
 2. A method is called to set the URL to the correct address. If it arrives empty = ((localhost:8080)/) it is set to its startpage 
 ((localhost:8080)/index.html). If it is a subfolder, we add its "child" to it, since there was only one (../subfolder/index.html). For 
-every match with the Dictionary, the address stays the same. We use this output to compare Keys with our Dictionary. Its Value is
-returned and saved in a Byte-array.
+every match with the Dictionary, the address stays the same. We use this output to compare Keys with our Dictionary and its Value is
+returned.
 3. Taking the same output(Key) as above and send it into the MimeMapping.GetMimeMapping Method, to receive the ContentType.
 4. Setting an expiring-date with the header-property one year from now.
 5. Adding a Cookie to the CookieCollection and returning the name and Counter-value to the object.
