@@ -40,11 +40,7 @@ namespace Homework
             {
                 // this is what we worked on in class, ei: a normal request that looks for resources in the content folder
                 Buffer = File.ReadAllBytes(Resources.FilePaths[CleanUrl]);
-                Response.ContentType = MimeMapping.GetMimeMapping(Resources.FilePaths[CleanUrl]);
-
-                if(CleanUrl == "/script.js")
-                Console.WriteLine(MimeMapping.GetMimeMapping(Resources.FilePaths[CleanUrl]));
-
+                Response.ContentType = MimeMapping.GetMimeMapping(Resources.FilePaths[CleanUrl]);                                
                 Response.StatusCode = 200;
             }
             // bad
@@ -72,7 +68,9 @@ namespace Homework
                 {
                     if (c.Name == "counter")
                     {
-                        Response.Cookies.Add(new Cookie("counter", (Convert.ToInt32(c.Value) + 1).ToString()));
+                        Cookie CounterCookie = c;
+                        CounterCookie.Value = (Convert.ToInt32(c.Value) + 1).ToString();
+                        Response.Cookies.Add(c);
                     }
                 }
             }
@@ -93,37 +91,30 @@ namespace Homework
                     }
                     else
                     {
+                        int num1 = Convert.ToInt32(request.QueryString.Get(0));
+                        int num2 = Convert.ToInt32(request.QueryString.Get(1));
+                        int sum = num1 + num2;
                         // the "Accept" header determines which type of format we will return
                         if (request.Headers.Get("Accept") == "application/xml")
                         {
-                            Buffer = Encoding.UTF8.GetBytes("<result><value>5</value></result>");
+                            Buffer = Encoding.UTF8.GetBytes("<result><value>" + sum + "</value></result>");
                             Response.ContentType = "application/xml";
 
                         }
                         else
                         {
-                            Buffer = Encoding.UTF8.GetBytes("<html><body>3</body></html>");
+                            Buffer = Encoding.UTF8.GetBytes("<html><body>" + sum + "</body></html>");
                             Response.ContentType = "text/html";
-
                         }
                         Response.StatusCode = 200;
                     }
                     break;
 
                 case "/counter":
-                    //making sure the cookie exsists
-                    if (request.Cookies.Count == 0)
-                    {
-                        Buffer = Encoding.UTF8.GetBytes("Cookie does not exist");
-                        Response.ContentType = "text/html";
-                        Response.StatusCode = 404;
-                    }
-                    else
-                    {
-                        Buffer = Encoding.UTF8.GetBytes(request.Cookies[0].Value);
+
+                        Buffer = Encoding.UTF8.GetBytes(Response.Cookies[0].Value);
                         Response.ContentType = "text/html";
                         Response.StatusCode = 200;
-                    }
 
                     break;
             }
